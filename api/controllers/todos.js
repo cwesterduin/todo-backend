@@ -23,4 +23,14 @@ router.get('/:id', async (req, res) => {
     }
 })
 
+// Create todo route
+router.post('/', async (req, res) => {
+    try {
+        const todo = await Todo.create(req.body.title, req.body.body)
+        res.json(todo)
+    } catch(err) {
+        res.status(404).json({err})
+    }
+})
+
 module.exports = router;

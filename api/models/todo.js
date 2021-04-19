@@ -31,6 +31,18 @@ class Todo {
             }
         });
     }
+
+    static create(title, body){
+        return new Promise (async (resolve, reject) => {
+            try {
+                let todoData = await db.query(SQL`INSERT INTO todos (title, body) VALUES (${title}, ${body}) RETURNING *;`);
+                let newtodo = new Todo(todoData.rows[0]);
+                resolve (newtodo);
+            } catch (err) {
+                reject('Error creating todo');
+            }
+        });
+    }
 }
 
 module.exports = Todo
