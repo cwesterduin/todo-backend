@@ -14,6 +14,7 @@ class Todo {
             try {
                 const todosData = await db.query(`SELECT * FROM todos;`)
                 const todos = todosData.rows.map(d => new Todo(d))
+                todos.sort((a,b) => a.id - b.id)
                 resolve(todos);
             } catch (err) {
                 reject("Error retrieving todos")
