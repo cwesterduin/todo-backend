@@ -43,6 +43,18 @@ class Todo {
             }
         });
     }
+
+    destroy(){
+        return new Promise(async(resolve, reject) => {
+            try {
+                await db.query(SQL `DELETE FROM todos WHERE id = ${this.id};`);
+                resolve('todo was deleted')
+            } catch (err) {
+                reject('todo could not be deleted')
+            }
+        })
+    }
+    
 }
 
 module.exports = Todo
