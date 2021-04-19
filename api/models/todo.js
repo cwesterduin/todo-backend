@@ -68,6 +68,17 @@ class Todo {
         })
     }
 
+    update(title, body){
+        return new Promise(async(resolve, reject) => {
+            try {
+                await db.query(SQL `UPDATE todos SET title = ${title}, body = ${body} WHERE id = ${this.id};`);
+                resolve('todo was updated')
+            } catch (err) {
+                reject('todo could not be updated')
+            }
+        })
+    }
+
 }
 
 module.exports = Todo

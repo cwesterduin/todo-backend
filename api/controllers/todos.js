@@ -55,4 +55,15 @@ router.patch('/:id/toggle', async (req, res) => {
     }
 })
 
+// update todo
+router.patch('/:id', async (req, res) => {
+    try {
+        const todo = await Todo.findById(parseInt(req.params.id))
+        await todo.update(req.body.title, req.body.body)
+        res.status(204).json('todo updated')
+    } catch(err) {
+        res.status(500).json({err})
+    }
+})
+
 module.exports = router;
