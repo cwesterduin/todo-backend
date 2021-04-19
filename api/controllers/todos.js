@@ -44,4 +44,15 @@ router.delete('/:id', async (req, res) => {
     }
 })
 
+// toggle todo status
+router.patch('/:id/toggle', async (req, res) => {
+    try {
+        const todo = await Todo.findById(parseInt(req.params.id))
+        await todo.toggle()
+        res.status(204).json('todo toggled')
+    } catch(err) {
+        res.status(500).json({err})
+    }
+})
+
 module.exports = router;

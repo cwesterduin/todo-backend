@@ -6,6 +6,7 @@ class Todo {
         this.id = data.id
         this.title = data.title
         this.body = data.body
+        this.completed = data.completed
     }
 
     static get all() {
@@ -54,7 +55,18 @@ class Todo {
             }
         })
     }
-    
+
+    toggle(){
+        return new Promise(async(resolve, reject) => {
+            try {
+                await db.query(SQL `UPDATE todos SET completed = NOT completed WHERE id = ${this.id};`);
+                resolve('todo was toggled')
+            } catch (err) {
+                reject('todo could not be toggled')
+            }
+        })
+    }
+
 }
 
 module.exports = Todo
