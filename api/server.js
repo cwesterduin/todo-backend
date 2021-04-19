@@ -7,4 +7,8 @@ server.use(express.json());
 
 server.get('/', (req, res) => res.send('Welcome'));
 
+const todoRoutes = require('./controllers/todos')
+server.use('/todos', todoRoutes)
+
+
 module.exports = server
